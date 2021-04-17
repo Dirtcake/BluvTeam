@@ -11,12 +11,20 @@ public class Pause : MonoBehaviour
 
     void Update()
     {
+        //if (aberto == true)
+        //{
+        //    Cursor.lockState = CursorLockMode.None;
+        //}
+        ////else
+        ////    abrir();
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (aberto == true)
             {
                 pause.SetActive(false);
                 aberto = false;
+                Cursor.lockState = CursorLockMode.Locked;
             }
             else
                 abrir();
@@ -24,6 +32,7 @@ public class Pause : MonoBehaviour
     }
     public void abrir()
     {
+        Cursor.lockState = CursorLockMode.None;
         pause.SetActive(true);
         aberto = true;
     }
