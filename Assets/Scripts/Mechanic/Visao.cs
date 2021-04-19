@@ -18,47 +18,54 @@ public class Visao : MonoBehaviour
 
     private void Update()
     {
-        PlayerVision();
+            PlayerVision();
 
-        RayCast();
-
+            RayCast();          
     }
 
     private void PlayerVision()
     {
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        if(Pause.aberto == false)
+        {
+            float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+            float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+            xRotation -= mouseY;
+            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        playerBody.Rotate(Vector3.up * mouseX);
+            transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+            playerBody.Rotate(Vector3.up * mouseX);
+        }
+        
     }
 
     private void RayCast()
     {
-        Debug.DrawRay(transform.position,Vector3.forward,Color.green);
-
-        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit)) // Corrigir a distancia que o raycast percorre
+        if(Pause.aberto == false)
         {
+            Debug.DrawRay(transform.position, Vector3.forward, Color.green);
 
-            if (hit.transform.GetComponent<IInteragivel>() == null && interacao != null)
+            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit)) // Corrigir a distancia que o raycast percorre
             {
-                interacao.DownLight();
-                return;
-            }
 
-            interacao = hit.transform.GetComponent<IInteragivel>();
+                if (hit.transform.GetComponent<IInteragivel>() == null && interacao != null)
+                {
+                    interacao.DownLight();
+                    return;
+                }
 
-            if (interacao != null)
-            {
-                interacao.HighLight();
+                interacao = hit.transform.GetComponent<IInteragivel>();
 
-                if (Input.GetMouseButtonDown(0))
-                    interacao.Interaction();
+                if (interacao != null)
+                {
+                    interacao.HighLight();
+
+                    if (Input.GetMouseButtonDown(0))
+                        interacao.Interaction();
+                }
             }
         }
+        
     }
 }

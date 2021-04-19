@@ -5,27 +5,16 @@ using UnityEngine.UI;
 
 public class Pause : MonoBehaviour
 {
-    public bool aberto = false;
+    public static bool aberto = false;
 
     public GameObject pause;
 
     void Update()
     {
-        //if (aberto == true)
-        //{
-        //    Cursor.lockState = CursorLockMode.None;
-        //}
-        ////else
-        ////    abrir();
-
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (aberto == true)
-            {
-                pause.SetActive(false);
-                aberto = false;
-                Cursor.lockState = CursorLockMode.Locked;
-            }
+                fechar();
             else
                 abrir();
         }
@@ -33,8 +22,16 @@ public class Pause : MonoBehaviour
     public void abrir()
     {
         Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         pause.SetActive(true);
         aberto = true;
+    }
+    public void fechar()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        pause.SetActive(false);
+        aberto = false;       
     }
 }
 

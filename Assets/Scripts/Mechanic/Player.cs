@@ -18,9 +18,13 @@ public class Player : MonoBehaviour
 
     private void Mover()
     {
+      
         Vector3 move = Vector3.zero;
         move += Input.GetAxis("Horizontal") * transform.right * playerVelocity;
         move += Input.GetAxis("Vertical") * transform.forward * playerVelocity;
-        controlador.Move(move * Time.deltaTime);
+       
+        if (Pause.aberto == false) 
+            controlador.Move(move * Time.deltaTime);
+        
     }
 }
