@@ -14,6 +14,8 @@ public class Visao : MonoBehaviour
     private float range = 2;
 
     public GameObject interactionHint;
+
+    
     private void Start()
     {
         transform.localRotation = Quaternion.Euler(Vector3.zero);
@@ -56,7 +58,7 @@ public class Visao : MonoBehaviour
                 interacao.HighLight();
                 interactionHint.SetActive(true);
 
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButtonDown(0) )
                     interacao.Interaction();
             }
         }
